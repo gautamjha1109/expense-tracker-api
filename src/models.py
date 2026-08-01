@@ -21,3 +21,10 @@ class ExpenseCreate(BaseModel):
     amount: float = Field(gt=0)
     category: str = Field(min_length=1, max_length=50)
     date: date
+
+
+class CategoryTotal(BaseModel):
+    """Response model for category total results."""
+
+    category: str
+    total: float

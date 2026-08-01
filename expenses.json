@@ -8,8 +8,8 @@
   },
   {
     "id": 2,
-    "title": "Lunch",
-    "amount": 12.5,
+    "title": "Dinner",
+    "amount": 25.0,
     "category": "Food",
     "date": "2026-08-01"
   }

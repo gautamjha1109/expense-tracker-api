@@ -39,14 +39,17 @@ def get_total_expenses() -> dict[str, float]:
     return {"total": round(total, 2)}
 
 
-@router.get("/expenses/category-total")
-def get_category_total(category: str) -> dict[str, float]:
+from src.models import CategoryTotal
+
+
+@router.get("/expenses/category-total", response_model=CategoryTotal)
+def get_category_total(category: str) -> CategoryTotal:
     """Return the total for a specific category."""
     expenses = load_expenses()
     total = sum(
         expense.amount for expense in expenses if expense.category.lower() == category.lower()
     )
-    return {"category": category, "total": round(total, 2)}
+    return CategoryTotal(category=category, total=round(total, 2))
 
 
 @router.delete("/expenses/{expense_id}", status_code=status.HTTP_204_NO_CONTENT)
