@@ -38,6 +38,29 @@ def test_create_and_list_expenses() -> None:
     assert len(list_response.json()) == 1
 
 
+def test_delete_expense() -> None:
+    reset_storage()
+
+    response = client.post(
+        "/expenses",
+        json={
+            "title": "Lunch",
+            "amount": 12.5,
+            "category": "Food",
+            "date": "2026-08-01",
+        },
+    )
+    assert response.status_code == 201
+    expense_id = response.json()["id"]
+
+    delete_response = client.delete(f"/expenses/{expense_id}")
+    assert delete_response.status_code == 204
+
+    list_response = client.get("/expenses")
+    assert list_response.status_code == 200
+    assert list_response.json() == []
+
+
 def test_category_total() -> None:
     reset_storage()
 
